@@ -3,47 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartCode Converter</title>
+    <title>SmartCode Converter & AI Fixer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; text-align: center; }
-        .container { max-width: 500px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: auto; }
-        h1 { color: #2c3e50; font-size: 24px; }
-        p { color: #7f8c8d; }
-        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
-        .btn { background-color: #27ae60; color: white; border: none; padding: 15px 25px; border-radius: 8px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; }
-        .btn:hover { background-color: #219150; }
-        .feature-box { margin-top: 20px; padding: 10px; border-top: 1px solid #eee; display: flex; justify-content: space-around; font-size: 12px; color: #34495e; }
+        :root { --primary: #2563eb; --secondary: #10b981; --dark: #1e293b; }
+        body { font-family: 'Inter', sans-serif; background: #f1f5f9; margin: 0; color: var(--dark); }
+        .nav { background: white; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-weight: bold; font-size: 20px; color: var(--primary); }
+        .main-container { padding: 20px; max-width: 800px; margin: auto; }
+        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        h2 { font-size: 18px; margin-top: 0; display: flex; align-items: center; gap: 10px; }
+        textarea { width: 100%; height: 200px; padding: 15px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-family: 'Courier New', monospace; box-sizing: border-box; background: #282c34; color: #abb2bf; font-size: 14px; }
+        input[type="url"] { width: 100%; padding: 12px; border: 1.5px solid #e2e8f0; border-radius: 8px; margin-bottom: 10px; box-sizing: border-box; }
+        .btn-group { display: flex; gap: 10px; margin-top: 10px; }
+        .btn { flex: 1; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.3s; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-secondary { background: var(--secondary); color: white; }
+        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+        .result-box { margin-top: 15px; padding: 15px; background: #ecfdf5; border-left: 4px solid var(--secondary); display: none; }
+        .ad-space { background: #dfe7ef; height: 100px; display: flex; align-items: center; justify-content: center; border-radius: 8px; margin: 20px 0; font-size: 12px; color: #64748b; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>SmartCode Converter</h1>
-    <p>የእርስዎን ዌብሳይት ወደ አንድሮይድ እና iOS ይለውጡ</p>
-    
-    <input type="url" id="webUrl" placeholder="የዌብሳይት ሊንክ ያስገቡ (https://...)">
-    
-    <p>ወይም ኮድዎን እዚህ ይለጥፉ (AI ስህተት ያርማል)</p>
-    <textarea id="codeArea" rows="5" placeholder="ኮድ እዚህ ይጻፉ..."></textarea>
-    
-    <button class="btn" onclick="startProcess()">ወደ App ቀይር (Convert)</button>
+<div class="nav">🚀 SmartCode Pro</div>
 
-    <div class="feature-box">
-        <span>✅ AI ስህተት አራሚ</span>
-        <span>📱 APK/iOS</span>
-        <span>🚀 ፈጣን</span>
+<div class="main-container">
+    
+    <div class="card">
+        <h2><i class="fas fa-mobile-alt"></i> Web-to-App Converter</h2>
+        <input type="url" id="appUrl" placeholder="የዌብሳይትዎን ሊንክ እዚህ ያስገቡ (ለምሳሌ https://mysite.com)">
+        <button class="btn btn-primary" onclick="convertApp()"><i class="fas fa-magic"></i> ወደ Android/iOS ቀይር</button>
     </div>
+
+    <div class="ad-space">ማስታወቂያ እዚህ ይገባል (AdSense)</div>
+
+    <div class="card">
+        <h2><i class="fas fa-code"></i> AI Code Fixer & Editor</h2>
+        <textarea id="codeInput" placeholder="ኮድዎን እዚህ ይጻፉ ወይም ይለጥፉ..."></textarea>
+        <div class="btn-group">
+            <button class="btn btn-secondary" onclick="fixCode()"><i class="fas fa-wand-magic-sparkles"></i> ስህተት አርም (AI)</button>
+            <button class="btn btn-primary" onclick="deployCode()"><i class="fas fa-rocket"></i> Deploy አድርግ</button>
+        </div>
+        <div id="result" class="result-box"></div>
+    </div>
+
 </div>
 
 <script>
-    function startProcess() {
-        const url = document.getElementById('webUrl').value;
-        if(url === "") {
-            alert("እባክዎ መጀመሪያ ሊንክ ያስገቡ!");
-        } else {
-            alert("ልወጣው እየተጀመረ ነው... ማስታወቂያ እዚህ ጋር ይገባል።");
-            // እዚህ ጋር ወደፊት የማስታወቂያ ኮድ እና የልወጣ ሂደት እንጨምራለን
-        }
+    function convertApp() {
+        const url = document.getElementById('appUrl').value;
+        if(!url) { alert("እባክዎ መጀመሪያ ሊንክ ያስገቡ!"); return; }
+        alert("ልወጣው ተጀምሯል። እባክዎ ፋይሉ እስኪዘጋጅ ማስታወቂያውን ይዩ...");
+        // ወደፊት እዚህ ጋር የልወጣ ሰርቨር እናገናኛለን
+    }
+
+    function fixCode() {
+        const code = document.getElementById('codeInput').value;
+        const resultDiv = document.getElementById('result');
+        
+        if(!code) { alert("እባክዎ መጀመሪያ ኮድ ያስገቡ!"); return; }
+
+        resultDiv.style.display = "block";
+        resultDiv.innerHTML = "<b>AI እየመረመረ ነው...</b>";
+
+        // AI Logic Simulation
+        setTimeout(() => {
+            if(!code.includes("<") && !code.includes("{")) {
+                resultDiv.innerHTML = "❌ ስህተት ተገኝቷል፦ የገቡት ኮድ ትክክለኛ የፕሮግራሚንግ ፎርማት የለውም።";
+                resultDiv.style.background = "#fef2f2";
+            } else {
+                resultDiv.innerHTML = "✅ ኮዱ ቆንጆ ነው! ምንም ግልጽ ስህተት የለውም።";
+                resultDiv.style.background = "#ecfdf5";
+            }
+        }, 1500);
+    }
+
+    function deployCode() {
+        alert("ይህ አገልግሎት በቅርቡ ይከፈታል!");
     }
 </script>
 
