@@ -1,1 +1,51 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartCode Converter</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 20px; text-align: center; }
+        .container { max-width: 500px; background: white; padding: 30px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin: auto; }
+        h1 { color: #2c3e50; font-size: 24px; }
+        p { color: #7f8c8d; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; }
+        .btn { background-color: #27ae60; color: white; border: none; padding: 15px 25px; border-radius: 8px; cursor: pointer; width: 100%; font-size: 16px; font-weight: bold; }
+        .btn:hover { background-color: #219150; }
+        .feature-box { margin-top: 20px; padding: 10px; border-top: 1px solid #eee; display: flex; justify-content: space-around; font-size: 12px; color: #34495e; }
+    </style>
+</head>
+<body>
 
+<div class="container">
+    <h1>SmartCode Converter</h1>
+    <p>የእርስዎን ዌብሳይት ወደ አንድሮይድ እና iOS ይለውጡ</p>
+    
+    <input type="url" id="webUrl" placeholder="የዌብሳይት ሊንክ ያስገቡ (https://...)">
+    
+    <p>ወይም ኮድዎን እዚህ ይለጥፉ (AI ስህተት ያርማል)</p>
+    <textarea id="codeArea" rows="5" placeholder="ኮድ እዚህ ይጻፉ..."></textarea>
+    
+    <button class="btn" onclick="startProcess()">ወደ App ቀይር (Convert)</button>
+
+    <div class="feature-box">
+        <span>✅ AI ስህተት አራሚ</span>
+        <span>📱 APK/iOS</span>
+        <span>🚀 ፈጣን</span>
+    </div>
+</div>
+
+<script>
+    function startProcess() {
+        const url = document.getElementById('webUrl').value;
+        if(url === "") {
+            alert("እባክዎ መጀመሪያ ሊንክ ያስገቡ!");
+        } else {
+            alert("ልወጣው እየተጀመረ ነው... ማስታወቂያ እዚህ ጋር ይገባል።");
+            // እዚህ ጋር ወደፊት የማስታወቂያ ኮድ እና የልወጣ ሂደት እንጨምራለን
+        }
+    }
+</script>
+
+</body>
+</html>
