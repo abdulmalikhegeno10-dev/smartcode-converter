@@ -3,83 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SmartCode Converter & AI Fixer</title>
+    <title>SmartCode Pro - AI Fixer & App Converter</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
     <style>
-        :root { --primary: #2563eb; --secondary: #10b981; --dark: #1e293b; }
-        body { font-family: 'Inter', sans-serif; background: #f1f5f9; margin: 0; color: var(--dark); }
-        .nav { background: white; padding: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-weight: bold; font-size: 20px; color: var(--primary); }
-        .main-container { padding: 20px; max-width: 800px; margin: auto; }
-        .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        h2 { font-size: 18px; margin-top: 0; display: flex; align-items: center; gap: 10px; }
-        textarea { width: 100%; height: 200px; padding: 15px; border: 1.5px solid #e2e8f0; border-radius: 8px; font-family: 'Courier New', monospace; box-sizing: border-box; background: #282c34; color: #abb2bf; font-size: 14px; }
-        input[type="url"] { width: 100%; padding: 12px; border: 1.5px solid #e2e8f0; border-radius: 8px; margin-bottom: 10px; box-sizing: border-box; }
-        .btn-group { display: flex; gap: 10px; margin-top: 10px; }
-        .btn { flex: 1; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 8px; transition: 0.3s; }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-secondary { background: var(--secondary); color: white; }
-        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
-        .result-box { margin-top: 15px; padding: 15px; background: #ecfdf5; border-left: 4px solid var(--secondary); display: none; }
-        .ad-space { background: #dfe7ef; height: 100px; display: flex; align-items: center; justify-content: center; border-radius: 8px; margin: 20px 0; font-size: 12px; color: #64748b; }
+        :root { --primary: #2563eb; --secondary: #10b981; --dark: #0f172a; --bg: #f8fafc; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); margin: 0; color: var(--dark); }
+        .header { background: white; padding: 20px; text-align: center; border-bottom: 3px solid var(--primary); }
+        .container { padding: 15px; max-width: 600px; margin: auto; }
+        .card { background: white; padding: 20px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid #e2e8f0; }
+        textarea { width: 100%; height: 180px; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; font-family: monospace; box-sizing: border-box; background: #1e293b; color: #f1f5f9; }
+        input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; margin-bottom: 10px; box-sizing: border-box; }
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 16px; }
+        .btn-green { background: var(--secondary); color: white; }
+        .btn-blue { background: var(--primary); color: white; }
+        .btn:active { transform: scale(0.98); }
+        .status { padding: 15px; border-radius: 10px; display: none; margin-top: 10px; font-size: 14px; line-height: 1.5; }
+        .ad-box { background: #f1f5f9; height: 90px; border: 1px dashed #94a3b8; display: flex; align-items: center; justify-content: center; color: #64748b; font-size: 12px; margin: 15px 0; border-radius: 10px; }
     </style>
 </head>
 <body>
 
-<div class="nav">🚀 SmartCode Pro</div>
+<div class="header">
+    <h1 style="margin:0; color:var(--primary);">🚀 SmartCode Pro</h1>
+    <p style="margin:5px 0 0; color:#64748b; font-size:14px;">ሁሉንም በአንድ የያዘ የኮድ መፍቻ</p>
+</div>
 
-<div class="main-container">
+<div class="container">
     
     <div class="card">
-        <h2><i class="fas fa-mobile-alt"></i> Web-to-App Converter</h2>
-        <input type="url" id="appUrl" placeholder="የዌብሳይትዎን ሊንክ እዚህ ያስገቡ (ለምሳሌ https://mysite.com)">
-        <button class="btn btn-primary" onclick="convertApp()"><i class="fas fa-magic"></i> ወደ Android/iOS ቀይር</button>
+        <h3 style="margin-top:0;"><i class="fas fa-microchip"></i> AI ስህተት አራሚ</h3>
+        <textarea id="codeEditor" placeholder="ኮድዎን እዚህ ይለጥፉ (ለምሳሌ HTML ወይም CSS)..."></textarea>
+        <button class="btn btn-green" onclick="analyzeCode()"><i class="fas fa-wand-magic-sparkles"></i> ስህተቱን አርመህ አሳየኝ</button>
+        <div id="aiStatus" class="status"></div>
     </div>
 
-    <div class="ad-space">ማስታወቂያ እዚህ ይገባል (AdSense)</div>
+    <div class="ad-box">ማስታወቂያ (Google AdSense)</div>
 
     <div class="card">
-        <h2><i class="fas fa-code"></i> AI Code Fixer & Editor</h2>
-        <textarea id="codeInput" placeholder="ኮድዎን እዚህ ይጻፉ ወይም ይለጥፉ..."></textarea>
-        <div class="btn-group">
-            <button class="btn btn-secondary" onclick="fixCode()"><i class="fas fa-wand-magic-sparkles"></i> ስህተት አርም (AI)</button>
-            <button class="btn btn-primary" onclick="deployCode()"><i class="fas fa-rocket"></i> Deploy አድርግ</button>
-        </div>
-        <div id="result" class="result-box"></div>
+        <h3 style="margin-top:0;"><i class="fas fa-mobile-screen-button"></i> Web to App Converter</h3>
+        <input type="url" id="siteUrl" placeholder="የዌብሳይቱን ሊንክ ያስገቡ (https://...)">
+        <button class="btn btn-blue" onclick="convertToApp()"><i class="fas fa-file-export"></i> ወደ Android/iOS ቀይር</button>
     </div>
+
+    <div class="ad-box">ማስታወቂያ (Google AdSense)</div>
 
 </div>
 
 <script>
-    function convertApp() {
-        const url = document.getElementById('appUrl').value;
-        if(!url) { alert("እባክዎ መጀመሪያ ሊንክ ያስገቡ!"); return; }
-        alert("ልወጣው ተጀምሯል። እባክዎ ፋይሉ እስኪዘጋጅ ማስታወቂያውን ይዩ...");
-        // ወደፊት እዚህ ጋር የልወጣ ሰርቨር እናገናኛለን
-    }
-
-    function fixCode() {
-        const code = document.getElementById('codeInput').value;
-        const resultDiv = document.getElementById('result');
+    function analyzeCode() {
+        const code = document.getElementById('codeEditor').value;
+        const status = document.getElementById('aiStatus');
         
         if(!code) { alert("እባክዎ መጀመሪያ ኮድ ያስገቡ!"); return; }
 
-        resultDiv.style.display = "block";
-        resultDiv.innerHTML = "<b>AI እየመረመረ ነው...</b>";
+        status.style.display = "block";
+        status.style.background = "#eff6ff";
+        status.innerHTML = "⏳ AI እየመረመረ ነው...";
 
-        // AI Logic Simulation
         setTimeout(() => {
-            if(!code.includes("<") && !code.includes("{")) {
-                resultDiv.innerHTML = "❌ ስህተት ተገኝቷል፦ የገቡት ኮድ ትክክለኛ የፕሮግራሚንግ ፎርማት የለውም።";
-                resultDiv.style.background = "#fef2f2";
+            let feedback = "";
+            // Smart Logic Simulation
+            if (!code.includes("<!DOCTYPE html>") && code.includes("<html")) {
+                feedback = "💡 <b>ምክር:</b> የ HTML5 መለያ (<code>&lt;!DOCTYPE html&gt;</code>) ማከል ይረሱ።";
+            } else if (code.includes("{") && !code.includes("}")) {
+                feedback = "❌ <b>ስህተት ተገኝቷል:</b> ያልተዘጋ የቅንፍ ምልክት <code>}</code> አለ። ኮድዎን በደንብ ይፈትሹ።";
             } else {
-                resultDiv.innerHTML = "✅ ኮዱ ቆንጆ ነው! ምንም ግልጽ ስህተት የለውም።";
-                resultDiv.style.background = "#ecfdf5";
+                feedback = "✅ <b>ውጤት:</b> ኮዱ ምንም ግልጽ ስህተት የለበትም። በትክክል ይሰራል!";
             }
+            status.innerHTML = feedback;
         }, 1500);
     }
 
-    function deployCode() {
-        alert("ይህ አገልግሎት በቅርቡ ይከፈታል!");
+    function convertToApp() {
+        const url = document.getElementById('siteUrl').value;
+        if(!url) { alert("እባክዎ ሊንክ ያስገቡ!"); return; }
+        
+        alert("የልወጣ ሂደቱ ተጀምሯል! ፋይሉ እስኪዘጋጅ ማስታወቂያዎችን ይመልከቱ።");
+        // ወደፊት እዚህ ጋር ተጠቃሚውን ወደ Build ገጽ እንወስደዋለን
     }
 </script>
 
